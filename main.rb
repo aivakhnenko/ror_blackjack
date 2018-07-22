@@ -63,6 +63,15 @@ class PlayerAbstract
     @money = money
   end
 
+  def give_money(money)
+    if self.money >= money
+      self.money -= money
+      money
+    else
+      raise ErrorNoMoney
+    end
+  end
+
   private
 
   attr_accessor :money
@@ -72,15 +81,6 @@ class Player < PlayerAbstract
   def ask_user_for_name
     print 'Your name: '
     self.name = gets.chomp
-  end
-
-  def give_money(money)
-    if self.money >= money
-      self.money -= money
-      money
-    else
-      raise ErrorNoMoney
-    end
   end
 
   def take_cards(cards)
@@ -93,7 +93,6 @@ class Player < PlayerAbstract
 end
 
 class Dealer < PlayerAbstract
-  def give_money(money)
   def take_cards(cards)
   def choise
   def hand_size
