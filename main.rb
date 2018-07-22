@@ -61,6 +61,7 @@ end
 class PlayerAbstract
   def initialize(money)
     @money = money
+    @hand = []
   end
 
   def give_money(money)
@@ -79,6 +80,7 @@ class PlayerAbstract
   private
 
   attr_accessor :money
+  attr_reader :hand
 end
 
 class Player < PlayerAbstract
