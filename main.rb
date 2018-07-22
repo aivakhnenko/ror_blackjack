@@ -18,9 +18,9 @@ class Main
     puts 'Start'
     while keep_play_flag do
       new_game_preparation if new_game_flag
-      player_move
+      move(player)
       next if new_game_flag
-      dealer_move
+      move(dealer)
       show_cards_and_choose_winner if maximum_hands_sizes
     end
   end
@@ -44,18 +44,11 @@ class Main
     self.new_game_flag = false
   end
 
-  def player_move
+  def move(player)
     case player.choise
     when :skip then do_nothing
     when :get_card then player.take_cards(desk.give_cards(1))
     when :show_cards then show_cards_and_choose_winner
-    end
-  end
-
-  def dealer_move
-    case dealer.choise
-    when :skip then do_nothing
-    when :get_card then dealer.take_cards(desk.give_cards(1))
     end
   end
 
