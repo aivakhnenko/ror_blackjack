@@ -22,7 +22,7 @@ class Main
   def play
     print "\nWelcome to the BlackJack game!\n\n"
     player.ask_user_for_name
-    while keep_play_flag do
+    while keep_play_flag
       new_game_preparation if new_game_flag
       move(player)
       next if new_game_flag
@@ -37,15 +37,19 @@ class Main
   attr_accessor :bank, :keep_play_flag, :new_game_flag
 
   def new_game_preparation
-    puts "================= New game ================="
-    self.bank = bank + player.give_money(MONEY_BET)
-    self.bank = bank + dealer.give_money(MONEY_BET)
-    puts player_money_and_bank
+    puts '================= New game ================='
+    fill_bank
     desk.new_desk
     desk.shuffle
     player.take_cards(desk.give_cards(CARDS_COUNT_START))
     dealer.take_cards(desk.give_cards(CARDS_COUNT_START))
     self.new_game_flag = false
+  end
+
+  def fill_bank
+    self.bank = bank + player.give_money(MONEY_BET)
+    self.bank = bank + dealer.give_money(MONEY_BET)
+    puts player_money_and_bank
   end
 
   def move(player)
@@ -58,8 +62,7 @@ class Main
   end
 
   def maximum_hands_sizes
-    player.hand_size == CARDS_COUNT_END &&
-    dealer.hand_size == CARDS_COUNT_END
+    player.hand_size == CARDS_COUNT_END && dealer.hand_size == CARDS_COUNT_END
   end
 
   def do_nothing; end
@@ -72,6 +75,7 @@ class Main
     when :draw then draw
     end
     clear_bank_and_hands
+    puts '================= Game end ================='
     self.new_game_flag = true
     self.keep_play_flag = ask_user_to_play_again
   end
@@ -89,7 +93,7 @@ class Main
     dealer_score = 0 - dealer_score if dealer_score > 21
     return :player if player_score > dealer_score
     return :dealer if dealer_score > player_score
-    return :draw
+    :draw
   end
 
   def win(player)
@@ -133,13 +137,12 @@ class Main
   end
 
   def options_for_new_game
-    puts "================= Game end ================="
     if player.money < MONEY_BET
       "You don't have enough money to play new game.\n" \
       'Do you want to start over? (1 - yes, 0 - no)'
     elsif dealer.money < MONEY_BET
       "Dealer don't have enough money to play new game.\n" \
-      "Do you want to start over? (1 - yes, 0 - no)"
+      'Do you want to start over? (1 - yes, 0 - no)'
     else
       'Do you want to play again? (1 - yes, 0 - no)'
     end
