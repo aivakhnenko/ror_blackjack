@@ -5,12 +5,12 @@ class Main
   CARDS_COUNT_AT_END = 3
 
   attr_reader :player_name
+  attr_reader :player
+  attr_reader :dealer
+  attr_reader :desk
   attr_reader :keep_play_flag
   attr_accessor :new_game_flag
   attr_reader :bank
-  attr_reader :desk
-  attr_reader :player
-  attr_reader :dealer
   attr_accessor :player_choise
   attr_accessor :dealer_choise
 
@@ -25,6 +25,7 @@ class Main
   end
 
   def play
+    puts 'Start'
     while keep_play_flag do
       if new_game_flag
         bank += player.give_money(MONEY_STACK)
@@ -58,6 +59,10 @@ class Main
   end
 
   def ask_player_name
+    print 'Your name: '
+    gets.chomp
+  end
+
   def do_nothing
   def show_cards_and_choose_winner
   def ask_user_to_play_again
