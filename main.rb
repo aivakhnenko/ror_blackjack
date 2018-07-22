@@ -4,14 +4,6 @@ class Main
   CARDS_COUNT_AT_START = 2
   CARDS_COUNT_AT_END = 3
 
-  attr_reader :player_name
-  attr_reader :player
-  attr_reader :dealer
-  attr_reader :desk
-  attr_reader :keep_play_flag
-  attr_accessor :new_game_flag
-  attr_reader :bank
-
   def initialize
     @player_name = ask_player_name
     @player = Player.new(MONEY_TOTAL, player_name)
@@ -32,6 +24,16 @@ class Main
       show_cards_and_choose_winner if maximum_hands_sizes
     end
   end
+
+  private
+
+  attr_reader :player_name
+  attr_reader :player
+  attr_reader :dealer
+  attr_reader :desk
+  attr_reader :keep_play_flag
+  attr_accessor :new_game_flag
+  attr_reader :bank
 
   def ask_player_name
     print 'Your name: '
