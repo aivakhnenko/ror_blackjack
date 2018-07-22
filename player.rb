@@ -13,8 +13,6 @@ class Player < PlayerAbstract
     end
   end
 
-  def hand_size
-
   private
 
   def show_info
@@ -27,7 +25,7 @@ class Player < PlayerAbstract
     puts 'Your options:'
     puts '1 - show cards'
     puts '2 - skip'
-    puts '3 - take cards' if hand.size < CARDS_COUNT_END
+    puts '3 - take cards' if hand_size < CARDS_COUNT_END
   end
 
   def ask_user_for_choise
@@ -36,7 +34,7 @@ class Player < PlayerAbstract
     case choise_id
     when 1 then return :show_cards
     when 2 then return :skip
-    when 3 then return :take_card if hand.size <CARDS_COUNT_END
+    when 3 then return :take_card if hand_size <CARDS_COUNT_END
     end
     nil
   end

@@ -31,6 +31,10 @@ class PlayerAbstract
     result += 10 if result <= 11 && aces > 0
   end
 
+  def hand_size
+    hand.size
+  end
+
   def win(money)
   def drop_hand
 
