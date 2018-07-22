@@ -113,7 +113,7 @@ class Desk
   end
 
   def shuffle
-    cards.shuffle
+    cards.shuffle!
   end
 
   def give_cards(cards_count)
