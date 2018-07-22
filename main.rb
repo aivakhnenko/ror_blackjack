@@ -58,11 +58,17 @@ class Main
   def ask_user_to_play_again
 end
 
-class Player
+class PlayerAbstract
   def initialize(money)
     @money = money
   end
 
+  private
+
+  attr_accessor :money
+end
+
+class Player
   def ask_user_for_name
     print 'Your name: '
     self.name = gets.chomp
@@ -75,11 +81,10 @@ class Player
 
   private
 
-  attr_accessor :money, :name
+  attr_accessor :name
 end
 
 class Dealer
-  def initialize(money)
   def give_money(money)
   def take_cards(cards)
   def choise
