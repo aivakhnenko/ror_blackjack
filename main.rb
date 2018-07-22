@@ -75,6 +75,14 @@ class Player < PlayerAbstract
   end
 
   def give_money(money)
+    if self.money >= money
+      self.money -= money
+      money
+    else
+      raise ErrorNoMoney
+    end
+  end
+
   def take_cards(cards)
   def choise
   def hand_size
