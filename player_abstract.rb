@@ -17,10 +17,14 @@ class PlayerAbstract
   end
 
   def take_cards(cards)
-    hand << cards
+    hand.push(*cards)
   end
 
-  def show_hand
+  def hand_and_score
+    "#{self.class} hand: #{hand_to_s}, score: #{score}"
+  end
+
+  def hand_to_s
     hand.join(' ')
   end
 
@@ -32,6 +36,7 @@ class PlayerAbstract
       aces += 1 if card.ace?
     end
     result += 10 if result <= 11 && aces > 0
+    result
   end
 
   def hand_size
@@ -53,6 +58,5 @@ class PlayerAbstract
   private
 
   attr_writer :money
-  attr_reader :hand
-  attr_reader :cards_count_limit
+  attr_reader :hand, :cards_count_limit
 end

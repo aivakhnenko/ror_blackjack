@@ -12,7 +12,6 @@ class Main
 
   def initialize
     @player = Player.new(MONEY_START, CARDS_COUNT_END)
-    player.ask_user_for_name
     @dealer = Dealer.new(MONEY_START, CARDS_COUNT_END)
     @desk = Desk.new
     @bank = 0
@@ -21,7 +20,8 @@ class Main
   end
 
   def play
-    puts 'Start'
+    print "\nWelcome to the BlackJack game!\n\n"
+    player.ask_user_for_name
     while keep_play_flag do
       new_game_preparation if new_game_flag
       move(player)
@@ -37,15 +37,19 @@ class Main
   attr_accessor :bank, :keep_play_flag, :new_game_flag
 
   def new_game_preparation
-    bank += player.give_money(MONEY_BET)
-    bank += dealer.give_money(MONEY_BET)
-    desk.new_desk.shuffle
+    puts "================= New game ================="
+    self.bank = bank + player.give_money(MONEY_BET)
+    self.bank = bank + dealer.give_money(MONEY_BET)
+    puts player_money_and_bank
+    desk.new_desk
+    desk.shuffle
     player.take_cards(desk.give_cards(CARDS_COUNT_START))
     dealer.take_cards(desk.give_cards(CARDS_COUNT_START))
     self.new_game_flag = false
   end
 
   def move(player)
+    puts "=== #{player.class} move ==="
     case player.choise
     when :skip then do_nothing
     when :take_card then player.take_cards(desk.give_cards(1))
@@ -61,27 +65,28 @@ class Main
   def do_nothing; end
 
   def show_cards_and_choose_winner
-    show_cards_and_scores
+    puts hands_and_scores
     case choose_winner
     when :player then win(player)
     when :dealer then win(dealer)
     when :draw then draw
     end
     clear_bank_and_hands
+    self.new_game_flag = true
     self.keep_play_flag = ask_user_to_play_again
   end
 
-  def show_cards_and_scores
-    puts 'Showing cards:'
-    puts 'Player: cards: #{player.show_hand}, score: #{player.score}'
-    puts 'Dealer: cards: #{dealer.show_hand}, score: #{dealer.score}'
+  def hands_and_scores
+    "=== Showing cards ===\n" \
+    "#{player.hand_and_score}\n" \
+    "#{dealer.hand_and_score}"
   end
 
   def choose_winner
     player_score = player.score
     dealer_score = dealer.score
     player_score = 0 - player_score if player_score > 21
-    dealer_score = 0 - dealer_score if player_score > 21
+    dealer_score = 0 - dealer_score if dealer_score > 21
     return :player if player_score > dealer_score
     return :dealer if dealer_score > player_score
     return :draw
@@ -90,12 +95,22 @@ class Main
   def win(player)
     puts "#{player.class} win"
     player.win(bank)
+    puts players_money
   end
 
   def draw
     puts 'Draw'
     player.win(bank / 2)
     dealer.win(bank / 2)
+    puts players_money
+  end
+
+  def players_money
+    "Player: #{player.money}, Dealer: #{dealer.money}"
+  end
+
+  def player_money_and_bank
+    "#{players_money}, Bank: #{bank}"
   end
 
   def clear_bank_and_hands
@@ -106,7 +121,7 @@ class Main
 
   def ask_user_to_play_again
     loop do
-      show_options_for_new_game
+      puts options_for_new_game
       user_choise = gets.to_i
       case user_choise
       when 1
@@ -117,15 +132,16 @@ class Main
     end
   end
 
-  def show_options_for_new_game
+  def options_for_new_game
+    puts "================= Game end ================="
     if player.money < MONEY_BET
-      puts "You don't have enough money to play new game."
-      puts 'Do you want to start over? (1 - yes, 0 - no)'
-    elsif dealer_score < MONEY_BET
-      puts "Dealer don't have enough money to play new game."
-      puts 'Do you want to start over? (1 - yes, 0 - no)'
+      "You don't have enough money to play new game.\n" \
+      'Do you want to start over? (1 - yes, 0 - no)'
+    elsif dealer.money < MONEY_BET
+      "Dealer don't have enough money to play new game.\n" \
+      "Do you want to start over? (1 - yes, 0 - no)"
     else
-      puts 'Do you want to play again? (1 - yes, 0 - no)'
+      'Do you want to play again? (1 - yes, 0 - no)'
     end
   end
 

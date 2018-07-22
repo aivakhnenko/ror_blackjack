@@ -6,8 +6,8 @@ class Player < PlayerAbstract
 
   def choise
     loop do
-      show_info
-      show_choise_options
+      puts players_hands_and_scores
+      puts choise_options
       user_choise = ask_user_for_choise
       return user_choise if user_choise
       puts 'Incorrect choise'
@@ -15,18 +15,23 @@ class Player < PlayerAbstract
   end
 
   private
+  
+  attr_accessor :name
 
-  def show_info
-    puts 'Your hand: #{show_hand}'
-    puts 'Dealer hand: ***'
-    puts 'Your score: #{score}'
+  def players_hands_and_scores
+    "#{hand_and_score}\n" \
+    "Dealer hand: ***"
   end
 
-  def show_choise_options
-    puts 'Your options:'
-    puts '1 - show cards'
-    puts '2 - skip'
-    puts '3 - take cards' if hand_size < cards_count_limit
+  def choise_options
+    "Your options:\n" \
+    "1 - show cards\n" \
+    "2 - skip" +
+    if hand_size < cards_count_limit
+      "\n3 - take card"
+    else
+      ''
+    end
   end
 
   def ask_user_for_choise
@@ -39,6 +44,4 @@ class Player < PlayerAbstract
     end
     nil
   end
-
-  attr_accessor :name
 end
