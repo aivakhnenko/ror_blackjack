@@ -41,6 +41,8 @@ class PlayerAbstract
   end
 
   def drop_hand
+    hand.clear
+  end
 
   private
 
