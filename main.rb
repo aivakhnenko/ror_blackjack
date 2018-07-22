@@ -65,11 +65,18 @@ end
 
 class Player
   def initialize(money)
+    @money = money
+  end
+
   def ask_user_for_name
   def give_money(money)
   def take_cards(cards)
   def choise
   def hand_size
+
+  private
+
+  attr_accessor :money
 end
 
 class Dealer
