@@ -44,7 +44,7 @@ class Main
     desk.new_desk.shuffle
     player.take_cards(desk.give_cards(CARDS_COUNT_AT_START))
     dealer.take_cards(desk.give_cards(CARDS_COUNT_AT_START))
-    new_game_flag = false
+    self.new_game_flag = false
   end
 
   def player_move
@@ -68,7 +68,7 @@ class Main
   end
 
   def do_nothing; end
-  
+
   def show_cards_and_choose_winner
   def ask_user_to_play_again
 end
