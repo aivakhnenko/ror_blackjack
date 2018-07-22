@@ -26,14 +26,7 @@ class Main
     puts 'Start'
     while keep_play_flag do
       new_game_preparation if new_game_flag
-      case player.choise
-      when :skip
-        do_nothing
-      when :get_card
-        player.take_cards(desk.give_cards(1))
-      when :show_cards
-        show_cards_and_choose_winner
-      end
+      player_move
       next if new_game_flag
       case dealer.choise
       when :skip
@@ -59,6 +52,14 @@ class Main
     player.take_cards(desk.give_cards(CARDS_COUNT_AT_START))
     dealer.take_cards(desk.give_cards(CARDS_COUNT_AT_START))
     new_game_flag = false
+  end
+
+  def player_move
+    case player.choise
+    when :skip then do_nothing
+    when :get_card then player.take_cards(desk.give_cards(1))
+    when :show_cards then show_cards_and_choose_winner
+    end
   end
     
   end
