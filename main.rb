@@ -57,12 +57,8 @@ class Main
   def show_cards_and_choose_winner
     show_cards_and_scores
     case choose_winner
-    when :player
-      puts 'Player win'
-      player.win(bank)
-    when :dealer
-      puts 'Dealer wins'
-      dealer.win(bank)
+    when :player then win(player)
+    when :dealer then win(dealer)
     when :draw
       puts 'Draw'
       player.win(bank / 2)
@@ -78,6 +74,11 @@ class Main
     puts 'Showing cards:'
     puts 'Player: cards: #{player.show_hand}, score: #{player.score}'
     puts 'Dealer: cards: #{dealer.show_hand}, score: #{dealer.score}'
+  end
+
+  def win(player)
+    puts "#{player.class} win"
+    player.win(bank)
   end
 
   def ask_user_to_play_again
