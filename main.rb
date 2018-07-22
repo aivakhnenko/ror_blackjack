@@ -110,4 +110,11 @@ class Desk
   attr_reader :cards
 end
 
+class Card
+  def initialize(suit, rank)
+    @suit = suit
+    @rank = rank
+  end
+end
+
 Main.new.play
