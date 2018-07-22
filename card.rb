@@ -1,4 +1,9 @@
 class Card
+  J = 11
+  Q = 12
+  K = 13
+  A = 14
+
   def initialize(suit, rank)
     @suit = suit
     @rank = rank
@@ -10,16 +15,14 @@ class Card
 
   def score
     case rank
-    when 11 then 10
-    when 12 then 10
-    when 13 then 10
-    when 14 then 1
+    when J, Q, K then 10
+    when A then 1
     else rank
     end
   end
 
   def ace?
-    rank == 14
+    rank == A
   end
 
   private
@@ -37,10 +40,10 @@ class Card
 
   def show_rank
     case rank
-    when 11 then 'J'
-    when 12 then 'Q'
-    when 13 then 'K'
-    when 14 then 'A'
+    when J then 'J'
+    when Q then 'Q'
+    when K then 'K'
+    when A then 'A'
     else rank.to_s
     end
   end
