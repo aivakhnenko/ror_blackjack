@@ -59,10 +59,7 @@ class Main
     case choose_winner
     when :player then win(player)
     when :dealer then win(dealer)
-    when :draw
-      puts 'Draw'
-      player.win(bank / 2)
-      dealer.win(bank / 2)
+    when :draw then draw
     end
     bank = 0
     player.drop_hand
@@ -79,6 +76,12 @@ class Main
   def win(player)
     puts "#{player.class} win"
     player.win(bank)
+  end
+
+  def draw
+    puts 'Draw'
+    player.win(bank / 2)
+    dealer.win(bank / 2)
   end
 
   def ask_user_to_play_again
