@@ -22,6 +22,15 @@ class PlayerAbstract
   end
 
   def score
+    result = 0
+    aces = 0
+    hand.each do |card|
+      result += card.score
+      aces += 1 if card.ace?
+    end
+    result += 10 if result <= 11 && aces > 0
+  end
+
   def win(money)
   def drop_hand
 
