@@ -96,13 +96,8 @@ class Player < PlayerAbstract
     loop
       show_info
       show_choise_options
-      print 'Your choise: '
-      choise_id = gets.to_i
-      case choise_id
-      when 1 then return :show_cards
-      when 2 then return :skip
-      when 3 then return :take_card if hand.size <CARDS_COUNT_AT_END
-      end
+      user_choise = ask_user_for_choise
+      return user_choise if user_choise
     end
   end
 
@@ -122,6 +117,17 @@ class Player < PlayerAbstract
     puts '1 - show cards'
     puts '2 - skip'
     puts '3 - take cards' if hand.size < CARDS_COUNT_AT_END
+  end
+
+  def ask_user_for_choise
+    print 'Your choise: '
+    choise_id = gets.to_i
+    case choise_id
+    when 1 then return :show_cards
+    when 2 then return :skip
+    when 3 then return :take_card if hand.size <CARDS_COUNT_AT_END
+    end
+    nil
   end
 
   attr_accessor :name
