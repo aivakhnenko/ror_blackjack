@@ -113,6 +113,7 @@ class Main
         reset_money if player.money < MONEY_BET || dealer.money < MONEY_BET
         return true
       when 0 then return false
+      end
     end
   end
 
