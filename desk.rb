@@ -4,7 +4,7 @@ class Desk
   end
 
   def new_desk
-    self.cards = []
+    cards.clear
     (1..4).each do |suit|
       (2..14).each do |rank|
         cards << Card.new(suit, rank)

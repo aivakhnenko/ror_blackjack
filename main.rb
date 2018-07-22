@@ -38,11 +38,11 @@ class Main
 
   def new_game_preparation
     puts '================= New game ================='
-    fill_bank
     desk.new_desk
     desk.shuffle
     player.take_cards(desk.give_cards(CARDS_COUNT_START))
     dealer.take_cards(desk.give_cards(CARDS_COUNT_START))
+    fill_bank
     self.new_game_flag = false
   end
 
