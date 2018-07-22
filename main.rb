@@ -94,9 +94,7 @@ class Player < PlayerAbstract
 
   def choise
     loop
-      puts 'Your hand: #{hand_to_s}'
-      puts 'Dealer hand: ***'
-      puts 'Your score: #{score}'
+      show_info
       puts 'Your options:'
       puts '1 - show cards'
       puts '2 - skip'
@@ -114,6 +112,12 @@ class Player < PlayerAbstract
   def hand_size
 
   private
+
+  def show_info
+    puts 'Your hand: #{hand_to_s}'
+    puts 'Dealer hand: ***'
+    puts 'Your score: #{score}'
+  end
 
   attr_accessor :name
 end
