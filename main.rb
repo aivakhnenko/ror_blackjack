@@ -61,9 +61,7 @@ class Main
     when :dealer then win(dealer)
     when :draw then draw
     end
-    bank = 0
-    player.drop_hand
-    dealer.drop_hand
+    clear_bank_and_hands
     keep_play_flag = ask_user_to_play_again
   end
 
@@ -82,6 +80,12 @@ class Main
     puts 'Draw'
     player.win(bank / 2)
     dealer.win(bank / 2)
+  end
+
+  def clear_bank_and_hands
+    bank = 0
+    player.drop_hand
+    dealer.drop_hand
   end
 
   def ask_user_to_play_again
