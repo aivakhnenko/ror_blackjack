@@ -72,6 +72,10 @@ class PlayerAbstract
     end
   end
 
+  def take_cards(cards)
+    hand << cards
+  end
+
   private
 
   attr_accessor :money
@@ -83,7 +87,6 @@ class Player < PlayerAbstract
     self.name = gets.chomp
   end
 
-  def take_cards(cards)
   def choise
   def hand_size
 
@@ -93,7 +96,6 @@ class Player < PlayerAbstract
 end
 
 class Dealer < PlayerAbstract
-  def take_cards(cards)
   def choise
   def hand_size
 end
