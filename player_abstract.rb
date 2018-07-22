@@ -1,4 +1,6 @@
 class PlayerAbstract
+  attr_reader :money
+
   def initialize(money, cards_count_limit)
     @money = money
     @hand = []
@@ -44,9 +46,11 @@ class PlayerAbstract
     hand.clear
   end
 
+  def reset_money(money)
+
   private
 
-  attr_accessor :money
+  attr_writer :money
   attr_reader :hand
   attr_reader :cards_count_limit
 end
