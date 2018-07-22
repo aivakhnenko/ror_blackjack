@@ -95,10 +95,7 @@ class Player < PlayerAbstract
   def choise
     loop
       show_info
-      puts 'Your options:'
-      puts '1 - show cards'
-      puts '2 - skip'
-      puts '3 - take cards' if hand.size < CARDS_COUNT_AT_END
+      show_choise_options
       print 'Your choise: '
       choise_id = gets.to_i
       case choise_id
@@ -117,6 +114,14 @@ class Player < PlayerAbstract
     puts 'Your hand: #{hand_to_s}'
     puts 'Dealer hand: ***'
     puts 'Your score: #{score}'
+  end
+
+
+  def show_choise_options
+    puts 'Your options:'
+    puts '1 - show cards'
+    puts '2 - skip'
+    puts '3 - take cards' if hand.size < CARDS_COUNT_AT_END
   end
 
   attr_accessor :name
