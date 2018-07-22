@@ -37,6 +37,9 @@ class PlayerAbstract
   end
 
   def win(money)
+    self.money += money
+  end
+
   def drop_hand
 
   private
