@@ -112,7 +112,10 @@ class PlayerAbstract
     hand << cards
   end
 
-  def hand_to_s
+  def show_hand
+    hand.join(' ')
+  end
+
   def score
   def win(money)
   def drop_hand
@@ -147,7 +150,6 @@ class Player < PlayerAbstract
     puts 'Dealer hand: ***'
     puts 'Your score: #{score}'
   end
-
 
   def show_choise_options
     puts 'Your options:'
@@ -209,6 +211,8 @@ class Card
     @suit = suit
     @rank = rank
   end
+
+  def to_s
 end
 
 Main.new.play
