@@ -19,6 +19,8 @@ class Card
   end
 
   def ace?
+    rank == 14
+  end
 
   private
 
