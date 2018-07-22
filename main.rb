@@ -28,15 +28,8 @@ class Main
       new_game_preparation if new_game_flag
       player_move
       next if new_game_flag
-      case dealer.choise
-      when :skip
-        do_nothing
-      when :get_card
-        dealer.tale_cards(desk.give_cards(1))
-      end
-      if player.hand_size == CARDS_COUNT_AT_END && dealer.hand_size == CARDS_COUNT_AT_END
-        show_cards_and_choose_winner
-      end
+      dealer_move
+      show_cards_and_choose_winner if maximum_hands_sizes
     end
   end
 
@@ -60,6 +53,18 @@ class Main
     when :get_card then player.take_cards(desk.give_cards(1))
     when :show_cards then show_cards_and_choose_winner
     end
+  end
+
+  def dealer_move
+    case dealer.choise
+    when :skip then do_nothing
+    when :get_card then dealer.take_cards(desk.give_cards(1))
+    end
+  end
+
+  def maximum_hands_sizes
+    player.hand_size == CARDS_COUNT_AT_END &&
+    dealer.hand_size == CARDS_COUNT_AT_END
   end
     
   end
