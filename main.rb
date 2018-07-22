@@ -117,6 +117,10 @@ class Desk
   end
 
   def give_cards(cards_count)
+    giving_cards = cards[0, cards_count]
+    self.cards = cards.drop(cards_count)
+    giving_cards
+  end
 
   private
 
