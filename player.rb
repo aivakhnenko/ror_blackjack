@@ -15,23 +15,23 @@ class Player < PlayerAbstract
   end
 
   private
-  
+
   attr_accessor :name
 
   def players_hands_and_scores
     "#{hand_and_score}\n" \
-    "Dealer hand: ***"
+    'Dealer hand: ***'
   end
 
   def choise_options
     "Your options:\n" \
     "1 - show cards\n" \
-    "2 - skip" +
-    if hand_size < cards_count_limit
-      "\n3 - take card"
-    else
-      ''
-    end
+    '2 - skip' +
+      if hand_size < cards_count_limit
+        "\n3 - take card"
+      else
+        ''
+      end
   end
 
   def ask_user_for_choise
