@@ -104,10 +104,7 @@ class Main
       user_choise = gets.to_i
       case user_choise
       when 1
-        if player.money < MONEY_BET || dealer.money < MONEY_BET
-          player.reset_money(MONEY_START)
-          dealer.reset_money(MONEY_START)
-        end
+        reset_money if player.money < MONEY_BET || dealer.money < MONEY_BET
         return true
       when 0 then return false
     end
@@ -123,6 +120,11 @@ class Main
     else
       puts 'Do you want to play again? (1 - yes, 0 - no)'
     end
+  end
+
+  def reset_money
+    player.reset_money(MONEY_START)
+    dealer.reset_money(MONEY_START)
   end
 end
 
