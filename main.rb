@@ -62,7 +62,7 @@ class Main
     when :draw then draw
     end
     clear_bank_and_hands
-    keep_play_flag = ask_user_to_play_again
+    self.keep_play_flag = ask_user_to_play_again
   end
 
   def show_cards_and_scores
@@ -70,6 +70,8 @@ class Main
     puts 'Player: cards: #{player.show_hand}, score: #{player.score}'
     puts 'Dealer: cards: #{dealer.show_hand}, score: #{dealer.score}'
   end
+
+  def choose_winner
 
   def win(player)
     puts "#{player.class} win"
@@ -83,7 +85,7 @@ class Main
   end
 
   def clear_bank_and_hands
-    bank = 0
+    self.bank = 0
     player.drop_hand
     dealer.drop_hand
   end
@@ -112,6 +114,8 @@ class PlayerAbstract
 
   def hand_to_s
   def score
+  def win(money)
+  def drop_hand
 
   private
 
@@ -139,7 +143,7 @@ class Player < PlayerAbstract
   private
 
   def show_info
-    puts 'Your hand: #{hand_to_s}'
+    puts 'Your hand: #{show_hand}'
     puts 'Dealer hand: ***'
     puts 'Your score: #{score}'
   end
