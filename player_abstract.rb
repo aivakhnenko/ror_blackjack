@@ -8,12 +8,9 @@ class PlayerAbstract
   end
 
   def give_money(money)
-    if self.money >= money
-      self.money -= money
-      money
-    else
-      raise ErrorNoMoney
-    end
+    raise ErrorNoMoney if money > self.money
+    self.money -= money
+    money
   end
 
   def take_cards(cards)
