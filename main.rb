@@ -1,42 +1,39 @@
-class BlackJackGame
-  attr_reader :players, :desk
-
-  def initialize
-    players = []
-    players << { player: Player.new, interface: 
-    players << Player.new
+player_name = ask_player_name
+player = Player.new(100, player_name)
+dealer = Dealer.new(100)
+desk = Desk.new(52)
+MONEY_STACK = 10
+keep_play_flag = true
+new_game_flag = true
+while keep_play_flag do
+  if new_game_flag
+    bank += player.get_money(MONEY_STACK)
+    bank += dealer.get_money(MONEY_STACK)
+    desk.get_new_desk.shuffle
+    player.get_cards(desk.get_cards(2))
+    dealer.get_cards(desk.get_cards(2))
+    new_game_flag = false
   end
-end
-
-class Player
-end
-
-class PlayerUserInterface
-end
-
-class DilerLogic
-end
-
-class Desk
-  attr_reader :desk
-
-  def initialize;
-    desk = []
-    refill!
+  player_choise = player.make_choise
+  case player_choise
+  when :skip
+    do_nothing
+  when :get_card
+    player.get_cards(desk.get_cards(1))
+  when :show_cards
+    show_cards_and_choose_winner
+    new_game_flag = true
   end
-
-  def empty?; end
-  def shuffle!; end
-  def get_random_card; end
-  def refill!
-    [1..4].each do |suit|
-      [1..13].each { |rank| desk << Card.new(suit, rank) }
-    end
+  next while if new_game_flag
+  dealer_choise = dealer.make_choise
+  case dealer_choise
+  when :skip
+    do_nothing
+  when :get_card
+    dealer.get_cards(desk.get_cards(1))
   end
-end
-
-class Card
-  attr_reader :rank, :suit, :name
-
-  def initialize; end
+  if player.hand_size == 3 && dealer.hand_size == 3
+    show_cards_and_choose_winner
+  end
+  keep_play_flag = ask_aser_to_play_again
 end
