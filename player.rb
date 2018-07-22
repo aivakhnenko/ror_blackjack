@@ -5,7 +5,7 @@ class Player < PlayerAbstract
   end
 
   def choise
-    loop
+    loop do
       show_info
       show_choise_options
       user_choise = ask_user_for_choise

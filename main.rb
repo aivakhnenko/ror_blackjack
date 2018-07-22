@@ -105,7 +105,7 @@ class Main
   end
 
   def ask_user_to_play_again
-    loop
+    loop do
       show_options_for_new_game
       user_choise = gets.to_i
       case user_choise
