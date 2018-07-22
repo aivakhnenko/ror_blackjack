@@ -68,7 +68,7 @@ class PlayerAbstract
   attr_accessor :money
 end
 
-class Player
+class Player < PlayerAbstract
   def ask_user_for_name
     print 'Your name: '
     self.name = gets.chomp
@@ -84,7 +84,7 @@ class Player
   attr_accessor :name
 end
 
-class Dealer
+class Dealer < PlayerAbstract
   def give_money(money)
   def take_cards(cards)
   def choise
