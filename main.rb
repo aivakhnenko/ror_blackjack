@@ -104,10 +104,10 @@ class Desk
   end
 
   def new_desk
-    @cards = []
+    self.cards = []
     [1..4].each do |suit|
       [2..14].each do |rank|
-        @cards << Card.new(suit, rank)
+        cards << Card.new(suit, rank)
       end
     end
   end
@@ -117,7 +117,7 @@ class Desk
 
   private
 
-  attr_reader :cards
+  attr_accessor :cards
 end
 
 class Card
