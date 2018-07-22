@@ -221,6 +221,14 @@ class Card
   attr_reader :suit, :rank
 
   def show_suit
+    case suit
+    when 1 then "\u2660"
+    when 2 then "\u2665"
+    when 3 then "\u2666"
+    when 4 then "\u2663"
+    end
+  end
+
   def show_rank
 end
 
