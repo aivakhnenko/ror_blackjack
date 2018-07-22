@@ -230,6 +230,14 @@ class Card
   end
 
   def show_rank
+    case rank
+    when 11 then 'J'
+    when 12 then 'Q'
+    when 13 then 'K'
+    when 14 then 'A'
+    else rank.to_s
+    end
+  end
 end
 
 Main.new.play
