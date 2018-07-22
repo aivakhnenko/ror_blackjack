@@ -27,14 +27,7 @@ class Main
   def play
     puts 'Start'
     while keep_play_flag do
-      if new_game_flag
-        bank += player.give_money(MONEY_STACK)
-        bank += dealer.give_money(MONEY_STACK)
-        desk.new_desk.shuffle
-        player.take_cards(desk.give_cards(CARDS_COUNT_AT_START))
-        dealer.take_cards(desk.give_cards(CARDS_COUNT_AT_START))
-        new_game_flag = false
-      end
+      new_game_preparation if new_game_flag
       player_choise = player.make_choise
       case player_choise
       when :skip
@@ -63,6 +56,16 @@ class Main
     gets.chomp
   end
 
+  def new_game_preparation
+    bank += player.give_money(MONEY_STACK)
+    bank += dealer.give_money(MONEY_STACK)
+    desk.new_desk.shuffle
+    player.take_cards(desk.give_cards(CARDS_COUNT_AT_START))
+    dealer.take_cards(desk.give_cards(CARDS_COUNT_AT_START))
+    new_game_flag = false
+  end
+    
+  end
   def do_nothing
   def show_cards_and_choose_winner
   def ask_user_to_play_again
