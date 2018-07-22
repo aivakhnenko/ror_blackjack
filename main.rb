@@ -42,7 +42,7 @@ class Main
   def move(player)
     case player.choise
     when :skip then do_nothing
-    when :get_card then player.take_cards(desk.give_cards(1))
+    when :take_card then player.take_cards(desk.give_cards(1))
     when :show_cards then show_cards_and_choose_winner
     end
   end
@@ -77,6 +77,9 @@ class PlayerAbstract
     hand << cards
   end
 
+  def hand_to_s
+  def score
+
   private
 
   attr_accessor :money
@@ -90,6 +93,24 @@ class Player < PlayerAbstract
   end
 
   def choise
+    loop
+      puts 'Your hand: #{hand_to_s}'
+      puts 'Dealer hand: ***'
+      puts 'Your score: #{score}'
+      puts 'Your options:'
+      puts '1 - show cards'
+      puts '2 - skip'
+      puts '3 - take cards' if hand.size < CARDS_COUNT_AT_END
+      print 'Your choise: '
+      choise_id = gets.to_i
+      case choise_id
+      when 1 then return :show_cards
+      when 2 then return :skip
+      when 3 then return :take_card if hand.size <CARDS_COUNT_AT_END
+      end
+    end
+  end
+
   def hand_size
 
   private
