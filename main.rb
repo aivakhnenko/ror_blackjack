@@ -1,13 +1,13 @@
 class Main
-  MONEY_TOTAL = 100
-  MONEY_STACK = 10
-  CARDS_COUNT_AT_START = 2
-  CARDS_COUNT_AT_END = 3
+  MONEY_START = 100
+  MONEY_BET = 10
+  CARDS_COUNT_START = 2
+  CARDS_COUNT_END = 3
 
   def initialize
-    @player = Player.new(MONEY_TOTAL)
+    @player = Player.new(MONEY_START)
     player.ask_user_for_name
-    @dealer = Dealer.new(MONEY_TOTAL)
+    @dealer = Dealer.new(MONEY_START)
     @desk = Desk.new
     @bank = 0
     @keep_play_flag = true
@@ -31,11 +31,11 @@ class Main
   attr_accessor :bank, :keep_play_flag, :new_game_flag
 
   def new_game_preparation
-    bank += player.give_money(MONEY_STACK)
-    bank += dealer.give_money(MONEY_STACK)
+    bank += player.give_money(MONEY_BET)
+    bank += dealer.give_money(MONEY_BET)
     desk.new_desk.shuffle
-    player.take_cards(desk.give_cards(CARDS_COUNT_AT_START))
-    dealer.take_cards(desk.give_cards(CARDS_COUNT_AT_START))
+    player.take_cards(desk.give_cards(CARDS_COUNT_START))
+    dealer.take_cards(desk.give_cards(CARDS_COUNT_START))
     self.new_game_flag = false
   end
 
@@ -48,8 +48,8 @@ class Main
   end
 
   def maximum_hands_sizes
-    player.hand_size == CARDS_COUNT_AT_END &&
-    dealer.hand_size == CARDS_COUNT_AT_END
+    player.hand_size == CARDS_COUNT_END &&
+    dealer.hand_size == CARDS_COUNT_END
   end
 
   def do_nothing; end
@@ -155,7 +155,7 @@ class Player < PlayerAbstract
     puts 'Your options:'
     puts '1 - show cards'
     puts '2 - skip'
-    puts '3 - take cards' if hand.size < CARDS_COUNT_AT_END
+    puts '3 - take cards' if hand.size < CARDS_COUNT_END
   end
 
   def ask_user_for_choise
@@ -164,7 +164,7 @@ class Player < PlayerAbstract
     case choise_id
     when 1 then return :show_cards
     when 2 then return :skip
-    when 3 then return :take_card if hand.size <CARDS_COUNT_AT_END
+    when 3 then return :take_card if hand.size <CARDS_COUNT_END
     end
     nil
   end
