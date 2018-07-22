@@ -9,9 +9,9 @@ class Main
     player.ask_user_for_name
     @dealer = Dealer.new(MONEY_TOTAL)
     @desk = Desk.new
+    @bank = 0
     @keep_play_flag = true
     @new_game_flag = true
-    @bank = 0
   end
 
   def play
@@ -27,12 +27,8 @@ class Main
 
   private
 
-  attr_reader :player
-  attr_reader :dealer
-  attr_reader :desk
-  attr_reader :keep_play_flag
-  attr_accessor :new_game_flag
-  attr_reader :bank
+  attr_reader :player, :dealer, :desk
+  attr_accessor :bank, :keep_play_flag, :new_game_flag
 
   def ask_player_name
     print 'Your name: '
