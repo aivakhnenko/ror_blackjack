@@ -47,6 +47,8 @@ class PlayerAbstract
   end
 
   def reset_money(money)
+    self.money = money
+  end
 
   private
 
