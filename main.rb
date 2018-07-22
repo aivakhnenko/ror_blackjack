@@ -72,6 +72,14 @@ class Main
   end
 
   def choose_winner
+    player_score = player.score
+    dealer_score = dealer.score
+    player_score = 0 - player_score if player_score > 21
+    dealer_score = 0 - dealer_score if player_score > 21
+    return :player if player_score > dealer_score
+    return :dealer if dealer_score > player_score
+    return :draw
+  end
 
   def win(player)
     puts "#{player.class} win"
