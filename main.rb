@@ -5,8 +5,8 @@ class Main
   CARDS_COUNT_AT_END = 3
 
   def initialize
-    @player_name = ask_player_name
-    @player = Player.new(MONEY_TOTAL, player_name)
+    @player = Player.new(MONEY_TOTAL)
+    player.ask_user_for_name
     @dealer = Dealer.new(MONEY_TOTAL)
     @desk = Desk.new
     @keep_play_flag = true
@@ -27,7 +27,6 @@ class Main
 
   private
 
-  attr_reader :player_name
   attr_reader :player
   attr_reader :dealer
   attr_reader :desk
@@ -76,7 +75,8 @@ class Main
 end
 
 class Player
-  def initialize(money, name)
+  def initialize(money)
+  def ask_user_for_name
   def give_money(money)
   def take_cards(cards)
   def choise
