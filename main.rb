@@ -1,3 +1,9 @@
+require_relative 'player_abstract'
+require_relative 'player'
+require_relative 'dealer'
+require_relative 'desk'
+require_relative 'card'
+
 class Main
   MONEY_START = 100
   MONEY_BET = 10
