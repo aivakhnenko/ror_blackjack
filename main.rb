@@ -213,6 +213,15 @@ class Card
   end
 
   def to_s
+    "#{show_rank}#{show_suit}"
+  end
+
+  private
+
+  attr_reader :suit, :rank
+
+  def show_suit
+  def show_rank
 end
 
 Main.new.play
