@@ -29,11 +29,19 @@ class PlayerAbstract
     result = 0
     aces = 0
     hand.each do |card|
-      result += card.score
+      result += card_score(card)
       aces += 1 if card.ace?
     end
     result += 10 if result <= 11 && aces > 0
     result
+  end
+
+  def card_score(card)
+    case card.rank
+    when 11, 12, 13 then 10
+    when 14 then 1
+    else card.rank
+    end
   end
 
   def hand_size

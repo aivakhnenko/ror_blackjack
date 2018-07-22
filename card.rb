@@ -4,6 +4,8 @@ class Card
   K = 13
   A = 14
 
+  attr_reader :rank
+
   def initialize(suit, rank)
     @suit = suit
     @rank = rank
@@ -13,21 +15,13 @@ class Card
     "#{show_rank}#{show_suit}"
   end
 
-  def score
-    case rank
-    when J, Q, K then 10
-    when A then 1
-    else rank
-    end
-  end
-
   def ace?
     rank == A
   end
 
   private
 
-  attr_reader :suit, :rank
+  attr_reader :suit
 
   def show_suit
     case suit
