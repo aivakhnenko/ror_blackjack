@@ -7,7 +7,7 @@ class Player < PlayerAbstract
   def choise
     loop
       show_info
-      show_choise_options(cards_count_limit)
+      show_choise_options
       user_choise = ask_user_for_choise
       return user_choise if user_choise
     end
