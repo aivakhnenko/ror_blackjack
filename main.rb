@@ -93,9 +93,21 @@ end
 
 class Desk
   def initialize
+    @cards = []
+    [1..4].each do |suit|
+      [2..14].each do |rank|
+        @cards << Card.new(suit, rank)
+      end
+    end
+  end
+
   def new_desk
   def shuffle
   def give_cards(cards_count)
+
+  private
+
+  attr_reader :cards
 end
 
 Main.new.play
