@@ -1,7 +1,8 @@
 class PlayerAbstract
-  def initialize(money)
+  def initialize(money, cards_count_limit)
     @money = money
     @hand = []
+    @cards_count_limit = cards_count_limit
   end
 
   def give_money(money)
@@ -42,4 +43,5 @@ class PlayerAbstract
 
   attr_accessor :money
   attr_reader :hand
+  attr_reader :cards_count_limit
 end

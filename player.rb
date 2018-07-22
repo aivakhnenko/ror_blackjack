@@ -7,7 +7,7 @@ class Player < PlayerAbstract
   def choise
     loop
       show_info
-      show_choise_options
+      show_choise_options(cards_count_limit)
       user_choise = ask_user_for_choise
       return user_choise if user_choise
     end
@@ -25,7 +25,7 @@ class Player < PlayerAbstract
     puts 'Your options:'
     puts '1 - show cards'
     puts '2 - skip'
-    puts '3 - take cards' if hand_size < CARDS_COUNT_END
+    puts '3 - take cards' if hand_size < cards_count_limit
   end
 
   def ask_user_for_choise
@@ -34,7 +34,7 @@ class Player < PlayerAbstract
     case choise_id
     when 1 then return :show_cards
     when 2 then return :skip
-    when 3 then return :take_card if hand_size <CARDS_COUNT_END
+    when 3 then return :take_card if hand_size < cards_count_limit
     end
     nil
   end

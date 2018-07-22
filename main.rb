@@ -5,9 +5,9 @@ class Main
   CARDS_COUNT_END = 3
 
   def initialize
-    @player = Player.new(MONEY_START)
+    @player = Player.new(MONEY_START, CARDS_COUNT_END)
     player.ask_user_for_name
-    @dealer = Dealer.new(MONEY_START)
+    @dealer = Dealer.new(MONEY_START, CARDS_COUNT_END)
     @desk = Desk.new
     @bank = 0
     @keep_play_flag = true
