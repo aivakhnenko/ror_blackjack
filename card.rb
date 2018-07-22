@@ -8,6 +8,18 @@ class Card
     "#{show_rank}#{show_suit}"
   end
 
+  def score
+    case rank
+    when 11 then 10
+    when 12 then 10
+    when 13 then 10
+    when 14 then 1
+    else rank
+    end
+  end
+
+  def ace?
+
   private
 
   attr_reader :suit, :rank
