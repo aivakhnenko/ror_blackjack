@@ -30,11 +30,6 @@ class Main
   attr_reader :player, :dealer, :desk
   attr_accessor :bank, :keep_play_flag, :new_game_flag
 
-  def ask_player_name
-    print 'Your name: '
-    gets.chomp
-  end
-
   def new_game_preparation
     bank += player.give_money(MONEY_STACK)
     bank += dealer.give_money(MONEY_STACK)
@@ -69,6 +64,10 @@ class Player
   end
 
   def ask_user_for_name
+    print 'Your name: '
+    self.name = gets.chomp
+  end
+
   def give_money(money)
   def take_cards(cards)
   def choise
@@ -76,7 +75,7 @@ class Player
 
   private
 
-  attr_accessor :money
+  attr_accessor :money, :name
 end
 
 class Dealer
