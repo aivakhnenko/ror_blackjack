@@ -11,8 +11,6 @@ class Main
   attr_reader :keep_play_flag
   attr_accessor :new_game_flag
   attr_reader :bank
-  attr_accessor :player_choise
-  attr_accessor :dealer_choise
 
   def initialize
     @player_name = ask_player_name
@@ -28,8 +26,7 @@ class Main
     puts 'Start'
     while keep_play_flag do
       new_game_preparation if new_game_flag
-      player_choise = player.make_choise
-      case player_choise
+      case player.choise
       when :skip
         do_nothing
       when :get_card
@@ -38,8 +35,7 @@ class Main
         show_cards_and_choose_winner
       end
       next if new_game_flag
-      dealer_choise = dealer.make_choise
-      case dealer_choise
+      case dealer.choise
       when :skip
         do_nothing
       when :get_card
@@ -75,7 +71,7 @@ class Player
   def initialize(money, name)
   def give_money(money)
   def take_cards(cards)
-  def make_choise
+  def choise
   def hand_size
 end
 
@@ -83,7 +79,7 @@ class Dealer
   def initialize(money)
   def give_money(money)
   def take_cards(cards)
-  def make_choise
+  def choise
   def hand_size
 end
 
