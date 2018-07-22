@@ -55,9 +55,7 @@ class Main
   def do_nothing; end
 
   def show_cards_and_choose_winner
-    puts 'Showing cards:'
-    puts 'Player: cards: #{player.show_hand}, score: #{player.score}'
-    puts 'Dealer: cards: #{dealer.show_hand}, score: #{dealer.score}'
+    show_cards_and_scores
     case choose_winner
     when :player
       puts 'Player win'
@@ -74,6 +72,12 @@ class Main
     player.drop_hand
     dealer.drop_hand
     keep_play_flag = ask_user_to_play_again
+  end
+
+  def show_cards_and_scores
+    puts 'Showing cards:'
+    puts 'Player: cards: #{player.show_hand}, score: #{player.score}'
+    puts 'Dealer: cards: #{dealer.show_hand}, score: #{dealer.score}'
   end
 
   def ask_user_to_play_again
