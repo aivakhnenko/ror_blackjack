@@ -100,15 +100,7 @@ class Main
 
   def ask_user_to_play_again
     loop
-      if player.money < MONEY_BET
-        puts "You don't have enough money to play new game."
-        puts 'Do you want to start over? (1 - yes, 0 - no)'
-      elsif dealer_score < MONEY_BET
-        puts "Dealer don't have enough money to play new game."
-        puts 'Do you want to start over? (1 - yes, 0 - no)'
-      else
-        puts 'Do you want to play again? (1 - yes, 0 - no)'
-      end
+      show_options_for_new_game
       user_choise = gets.to_i
       case user_choise
       when 1
@@ -118,6 +110,18 @@ class Main
         end
         return true
       when 0 then return false
+    end
+  end
+
+  def show_options_for_new_game
+    if player.money < MONEY_BET
+      puts "You don't have enough money to play new game."
+      puts 'Do you want to start over? (1 - yes, 0 - no)'
+    elsif dealer_score < MONEY_BET
+      puts "Dealer don't have enough money to play new game."
+      puts 'Do you want to start over? (1 - yes, 0 - no)'
+    else
+      puts 'Do you want to play again? (1 - yes, 0 - no)'
     end
   end
 end
