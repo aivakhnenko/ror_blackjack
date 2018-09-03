@@ -10,6 +10,7 @@ class Desk
         cards << Card.new(suit, rank)
       end
     end
+    self
   end
 
   def shuffle

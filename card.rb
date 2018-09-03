@@ -12,7 +12,7 @@ class Card
   end
 
   def to_s
-    "#{show_rank}#{show_suit}"
+    "#{rank_to_s}#{suit_to_s}"
   end
 
   def ace?
@@ -23,7 +23,7 @@ class Card
 
   attr_reader :suit
 
-  def show_suit
+  def suit_to_s
     case suit
     when 1 then "\u2660"
     when 2 then "\u2665"
@@ -32,7 +32,7 @@ class Card
     end
   end
 
-  def show_rank
+  def rank_to_s
     case rank
     when J then 'J'
     when Q then 'Q'

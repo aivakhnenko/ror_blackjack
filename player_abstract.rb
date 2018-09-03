@@ -1,7 +1,8 @@
 class PlayerAbstract
-  attr_reader :money
+  attr_reader :money, :hand
 
-  def initialize(money, cards_count_limit)
+  def initialize(game, money, cards_count_limit)
+    @game = game
     @money = money
     @hand = []
     @cards_count_limit = cards_count_limit
@@ -15,14 +16,6 @@ class PlayerAbstract
 
   def take_cards(cards)
     hand.push(*cards)
-  end
-
-  def hand_and_score
-    "#{self.class} hand: #{hand_to_s}, score: #{score}"
-  end
-
-  def hand_to_s
-    hand.join(' ')
   end
 
   def score
@@ -62,6 +55,6 @@ class PlayerAbstract
 
   private
 
+  attr_reader :game, :cards_count_limit
   attr_writer :money
-  attr_reader :hand, :cards_count_limit
 end

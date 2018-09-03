@@ -6,4 +6,4 @@ Style/Documentation:
 Metrics/ClassLength:
   # Default
   # Max: 100
-  Max: 127
+  Max: 230
