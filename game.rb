@@ -1,142 +1,149 @@
-class Game
-  MONEY_START = 100
-  MONEY_BET = 10
-  CARDS_COUNT_START = 2
-  CARDS_COUNT_END = 3
+require_relative 'desk'
+require_relative 'card'
 
-  attr_reader :bank, :new_game_flag
-  attr_accessor :keep_play_flag
+class Game
+  attr_reader :player_money, :dealer_money, :player_hand, :dealer_hand, :bank
 
   def initialize
-    @player = Player.new(self, MONEY_START, CARDS_COUNT_END)
-    @dealer = Dealer.new(self, MONEY_START, CARDS_COUNT_END)
-    @desk = Desk.new
+    @player_money = 100
+    @dealer_money = 100
+    @player_hand = nil
+    @dealer_hand = nil
     @bank = 0
-    @keep_play_flag = true
-    @new_game_flag = true
   end
 
-  def player_name=(player_name)
-    player.name = player_name
+  def over?
+    round_finished? && (player_money < bet_size || dealer_money < bet_size)
   end
 
-  def new_game_preparation
-    new_desk
-    desk_shuffle
-    player_take_initial_cards
-    dealer_take_initial_cards
-    fill_bank
-    self.new_game_flag = false
+  def start_new_round
+    self.player_money -= bet_size
+    self.dealer_money -= bet_size
+    self.bank = bet_size * 2
+    self.desk = Desk.new
+    self.player_hand = desk.give_cards(2)
+    self.dealer_hand = desk.give_cards(2)
+    self.player_moved = nil
+    self.dealer_moved = nil
+    self.whos_turn = :player
+    self.round_finished_flag = false
   end
 
-  def player_hand
-    player.hand
+  def can_player_take_card?
+    player_hand.size < hand_size_limit
   end
 
   def player_score
-    player.score
-  end
-
-  def dealer_hand
-    dealer.hand
+    score(player_hand)
   end
 
   def dealer_score
-    dealer.score
+    score(dealer_hand)
   end
 
-  def player_hand_size
-    player.hand_size
+  def player_move=(move)
+    player_move!(move)
   end
 
-  def cards_count_limit
-    CARDS_COUNT_END
+  def round_finished?
+    round_finished_flag
   end
 
-  def player_take_card
-    player.take_cards(desk.give_cards(1))
+  def dealer_move
+    dealer_moved
   end
 
-  def dealer_take_card
-    dealer.take_cards(desk.give_cards(1))
-  end
-
-  def choose_winner
-    player_score_final = player_score <= 21 ? player_score : -player_score
-    dealer_score_final = dealer_score <= 21 ? dealer_score : -dealer_score
+  def winner
+    return unless round_finished?
+    player_score_final = player_score > 21 ? -player_score : player_score
+    dealer_score_final = dealer_score > 21 ? -dealer_score : dealer_score
     return :player if player_score_final > dealer_score_final
     return :dealer if dealer_score_final > player_score_final
     :draw
   end
 
-  def player_win
-    player.win(bank)
-  end
-
-  def dealer_win
-    dealer.win(bank)
-  end
-
-  def draw
-    player.win(bank / 2)
-    dealer.win(bank / 2)
-  end
-
-  def clear_bank_and_hands
-    self.bank = 0
-    player.drop_hand
-    dealer.drop_hand
-    self.new_game_flag = true
-  end
-
-  def player_money
-    player.money
-  end
-
-  def dealer_money
-    dealer.money
-  end
-
-  def money_bet
-    MONEY_BET
-  end
-
-  def reset_money
-    player.reset_money(MONEY_START)
-    dealer.reset_money(MONEY_START)
-  end
-
-  def maximum_hands_sizes?
-    player.hand_size == CARDS_COUNT_END && dealer.hand_size == CARDS_COUNT_END
-  end
-
-  def dealer_choise
-    dealer.choise
-  end
-
   private
 
-  attr_reader :player, :dealer, :desk
-  attr_writer :bank, :new_game_flag
+  BET_SIZE = 10
+  HAND_SIZE_LIMIT = 3
 
-  def new_desk
-    desk.new_desk
+  attr_writer :player_money, :dealer_money, :player_hand, :dealer_hand, :bank
+  attr_accessor :round_finished_flag, :whos_turn, :player_moved, :dealer_moved
+  attr_accessor :desk
+
+  def bet_size
+    BET_SIZE
   end
 
-  def desk_shuffle
-    desk.shuffle
+  def hand_size_limit
+    HAND_SIZE_LIMIT
   end
 
-  def player_take_initial_cards
-    player.take_cards(desk.give_cards(CARDS_COUNT_START))
+  def score(hand)
+    result = 0
+    aces = 0
+    hand.each do |card|
+      result += card_score(card)
+      aces += 1 if card.ace?
+    end
+    result += 10 if result <= 11 && aces > 0
+    result
   end
 
-  def dealer_take_initial_cards
-    dealer.take_cards(desk.give_cards(CARDS_COUNT_START))
+  def card_score(card)
+    case card.rank
+    when card.jack, card.queen, card.king then 10
+    when card.ace then 1
+    else card.rank
+    end
   end
 
-  def fill_bank
-    self.bank = bank + player.give_money(MONEY_BET)
-    self.bank = bank + dealer.give_money(MONEY_BET)
+  def player_move!(move)
+    return unless whos_turn == :player
+    self.dealer_moved = nil
+    self.player_moved = move
+    take_card(player_hand) if player_moved == :take_card
+    check_if_round_should_be_finished
+    self.whos_turn = :dealer unless round_finished?
+    dealer_move!
+  end
+
+  def dealer_move!
+    return unless whos_turn == :dealer
+    self.player_moved = nil
+    self.dealer_moved = dealer_ai
+    take_card(dealer_hand) if dealer_moved == :take_card
+    check_if_round_should_be_finished
+    self.whos_turn = :player unless round_finished?
+  end
+
+  def dealer_ai
+    return :take_card if dealer_hand.size < hand_size_limit && dealer_score < 17
+    :skip
+  end
+
+  def take_card(hand)
+    hand.push(*desk.give_card)
+  end
+
+  def check_if_round_should_be_finished
+    finish_round if player_moved == :show_cards
+    finish_round if !can_player_take_card? && !can_dealer_take_card?
+  end
+
+  def can_dealer_take_card?
+    dealer_hand.size < hand_size_limit
+  end
+
+  def finish_round
+    self.round_finished_flag = true
+    case winner
+    when :player then self.player_money += bank
+    when :dealer then self.dealer_money += bank
+    when :draw
+      self.player_money += bank / 2
+      self.dealer_money += bank / 2
+    end
+    self.bank = 0
   end
 end

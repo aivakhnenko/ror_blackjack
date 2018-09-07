@@ -1,9 +1,4 @@
 class Card
-  J = 11
-  Q = 12
-  K = 13
-  A = 14
-
   attr_reader :rank
 
   def initialize(suit, rank)
@@ -15,8 +10,24 @@ class Card
     "#{rank_to_s}#{suit_to_s}"
   end
 
+  def jack
+    11
+  end
+
+  def queen
+    12
+  end
+
+  def king
+    13
+  end
+
+  def ace
+    14
+  end
+
   def ace?
-    rank == A
+    rank == ace
   end
 
   private
@@ -34,10 +45,10 @@ class Card
 
   def rank_to_s
     case rank
-    when J then 'J'
-    when Q then 'Q'
-    when K then 'K'
-    when A then 'A'
+    when jack then 'J'
+    when queen then 'Q'
+    when king then 'K'
+    when ace then 'A'
     else rank.to_s
     end
   end

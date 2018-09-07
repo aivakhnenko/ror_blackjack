@@ -1,19 +1,11 @@
 class Desk
   def initialize
     @cards = []
-  end
-
-  def new_desk
-    cards.clear
     (1..4).each do |suit|
       (2..14).each do |rank|
         cards << Card.new(suit, rank)
       end
     end
-    self
-  end
-
-  def shuffle
     cards.shuffle!
   end
 
@@ -21,6 +13,10 @@ class Desk
     giving_cards = cards[0, cards_count]
     self.cards = cards.drop(cards_count)
     giving_cards
+  end
+
+  def give_card
+    give_cards(1)
   end
 
   private
